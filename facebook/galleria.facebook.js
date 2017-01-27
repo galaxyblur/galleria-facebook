@@ -154,7 +154,7 @@ Galleria.Facebook.prototype = {
         return this._call( params, function(data) {
 
             var gallery = [],
-	        photos = data.photos.data,
+                photos = this.options.reverseOrder ? data.photos.data.reverse() : data.photos.data,
                 len = Math.min( this.options.max, photos.length ),
                 photo,
                 i;
@@ -166,8 +166,8 @@ Galleria.Facebook.prototype = {
                 gallery.push({
                     thumb: this._getSize( photo, this.options.thumbSize ),
                     image: this._getSize( photo, this.options.imageSize ),
-		    big: this._getBig( photo ),
-		    title: photo.name,
+                    big: this._getBig( photo ),
+                    title: photo.name,
                     description: this.options.description && photo.name ? photo.name : '',
                     link: this.options.backlink ? photo.link : ''
                 });
